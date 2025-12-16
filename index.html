@@ -3,421 +3,391 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3+1专升本竞品分析：我校劣势可视化</title>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <title>3+1 专升本竞品差距分析报告 - 修改版</title>
+    <!-- 引入 Tailwind CSS 进行布局 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 ECharts 图表库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <!-- 字体设置 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Microsoft YaHei', sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .header h1 {
-            color: #c23531;
-            margin: 0;
-            font-size: 28px;
-        }
-        .header p {
-            color: #666;
-            margin-top: 10px;
-        }
-        .container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .chart-box {
-            background: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            height: 450px;
-            display: flex;
-            flex-direction: column;
-        }
-        .chart-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            border-left: 5px solid #c23531;
-            padding-left: 10px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .chart-subtitle {
-            font-size: 12px;
-            color: #888;
-            font-weight: normal;
-        }
-        .chart-content {
-            flex: 1;
-            width: 100%;
-        }
-        /* Full width for the last chart */
-        .full-width {
-            grid-column: span 2;
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            .full-width {
-                grid-column: span 1;
-            }
-        }
+        body { font-family: 'Noto Sans SC', sans-serif; background-color: #f0f2f5; }
+        .card { background: white; border-radius: 16px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); }
+        .chart-box { height: 420px; width: 100%; }
+        .header-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); }
+        .highlight-red { color: #DC2626; font-weight: 900; } 
+        .highlight-blue { color: #2563eb; font-weight: 700; }
     </style>
 </head>
-<body>
+<body class="p-4 md:p-8">
 
-<div class="header">
-    <h1>又松大学 vs 43所竞争院校：核心劣势分析报告</h1>
-    <p>数据来源：专升本高校信息汇整 | 红色代表我校（劣势），青色代表竞争对手（优势）</p>
-</div>
-
-<div class="container">
-
-    <!-- 图表1：名校光环与地理位置 -->
-    <div class="chart-box">
-        <div class="chart-title">
-            1. 硬实力缺失：无QS排名且非首都圈
-            <span class="chart-subtitle">VS 43所高校总体</span>
-        </div>
-        <div id="chart1" class="chart-content"></div>
+    <!-- 标题区域 -->
+    <div class="header-gradient text-white p-8 rounded-2xl mb-8 shadow-lg text-center md:text-left">
+        <h1 class="text-3xl md:text-4xl font-black mb-2">3+1 专升本竞品差距分析报告</h1>
+        <p class="text-lg opacity-90">核心聚焦：<span class="text-yellow-300 font-bold">高昂学费</span>与<span class="text-yellow-300 font-bold">硬性指标缺失</span>的可视化呈现</p>
+        <p class="text-sm mt-4 opacity-75">对比样本：43所韩国高校（含11所QS排名院校） vs 又松大学</p>
     </div>
 
-    <!-- 图表2：专业选择局限性 -->
-    <div class="chart-box">
-        <div class="chart-title">
-            2. 专业选择权：我校仅3个可选专业
-            <span class="chart-subtitle">处于最低档位</span>
-        </div>
-        <div id="chart2" class="chart-content"></div>
+    <!-- 总结栏 -->
+    <div class="bg-red-50 border-l-8 border-red-600 p-6 mb-8 rounded-r-lg shadow-sm">
+        <h2 class="text-2xl font-bold text-red-800 mb-3">🚨 核心劣势速览</h2>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-red-700 font-medium">
+            <li>❌ <strong>学费极高：</strong> 位于 >500万韩元 最高区间（图表3）</li>
+            <li>❌ <strong>无名校光环：</strong> 无QS排名，非首都圈（图表1）</li>
+            <li>❌ <strong>门槛高昂：</strong> 入学金90.5万韩元，远超均值（图表4）</li>
+            <li>❌ <strong>福利缺失：</strong> 无奖学金，无接机服务（图表4/5）</li>
+        </ul>
     </div>
 
-    <!-- 图表3：学费价格高昂 -->
-    <div class="chart-box">
-        <div class="chart-title">
-            3. 学费成本：我校位于高价区 (500万档)
-            <span class="chart-subtitle">单位：万韩元/学期</span>
+    <!-- 图表网格 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- 图表1：名校与地理位置 -->
+        <div class="card p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-3">图表1：硬性指标缺失（QS排名与地理位置）</h2>
+            <div id="chart1" class="chart-box"></div>
+            <div class="mt-2 text-sm text-center text-gray-500">
+                <span class="inline-block w-3 h-3 bg-blue-500 mr-1"></span>竞争对手优势 
+                <span class="inline-block w-3 h-3 bg-red-600 mr-1 ml-3"></span>我校现状 (0)
+            </div>
         </div>
-        <div id="chart3" class="chart-content"></div>
+
+        <!-- 图表2：专业选择丰富度 (已修改为柱状图) -->
+        <div class="card p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-3">图表2：专业选择宽度对比（柱状图）</h2>
+            <div id="chart2" class="chart-box"></div>
+            <p class="text-sm text-gray-500 mt-2 text-center">又松大学仅开放 <span class="highlight-red">3个</span> 专业，处于选择链底端</p>
+        </div>
+
+        <!-- 图表3：学费价格区间 -->
+        <div class="card p-6 col-span-1 md:col-span-2 bg-gray-50">
+            <h2 class="text-xl font-bold text-gray-800 mb-2 border-l-4 border-red-600 pl-3">图表3：学费阶梯对比（从高到低排列）</h2>
+            <p class="text-gray-500 text-sm mb-4 ml-4">柱子高度代表学费金额（单位：万韩元）。<span class="highlight-red">红色最高柱</span>代表我校所在区间。</p>
+            <div id="chart3" class="chart-box" style="height: 500px;"></div>
+        </div>
+
+        <!-- 图表4：奖学金与入学金 (已修改标记) -->
+        <div class="card p-6 col-span-1 md:col-span-2">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 border-l-4 border-orange-500 pl-3">图表4：隐形教育成本与福利缺失</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 4.1 奖学金 -->
+                <div class="bg-white rounded-lg">
+                    <h3 class="text-center font-bold text-gray-700 mb-2">奖学金覆盖率对比 (学校数量)</h3>
+                    <div id="chart4_1" style="height: 350px;"></div>
+                </div>
+                <!-- 4.2 入学金 -->
+                <div class="bg-white rounded-lg">
+                    <h3 class="text-center font-bold text-gray-700 mb-2">入学金金额对比 (越低越好)</h3>
+                    <div id="chart4_2" style="height: 350px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 图表5：服务机制缺失 (已筛选数据) -->
+        <div class="card p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 border-l-4 border-gray-500 pl-3">图表5：留学生服务体系差距</h2>
+            <div id="chart5" class="chart-box"></div>
+        </div>
+
+        <!-- 图表6：综合劣势雷达图 -->
+        <div class="card p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 border-l-4 border-gray-800 pl-3">图表6：综合竞争力雷达图（面积对比）</h2>
+            <div id="chart6" class="chart-box"></div>
+            <p class="text-sm text-gray-500 mt-2 text-center"><span class="highlight-red">红色区域</span>面积越小，代表综合竞争力越弱</p>
+        </div>
+
     </div>
 
-    <!-- 图表4：奖学金与入学金 -->
-    <div class="chart-box">
-        <div class="chart-title">
-            4. 隐形门槛：无奖学金且入学金全韩最高
-            <span class="chart-subtitle">入学金对比</span>
-        </div>
-        <div id="chart4" class="chart-content"></div>
-    </div>
+    <footer class="mt-12 text-center text-gray-400 text-sm pb-8">
+        © 2025 专升本竞品分析生成 | 基于最新Excel数据源 (QS院校:11所, 首都圈:28所)
+    </footer>
 
-    <!-- 图表5：服务缺失 -->
-    <div class="chart-box">
-        <div class="chart-title">
-            5. 软服务真空：缺乏接机与文化体验
-            <span class="chart-subtitle">学生关怀对比</span>
-        </div>
-        <div id="chart5" class="chart-content"></div>
-    </div>
+    <script>
+        // 通用颜色定义
+        const colorWoosong = '#D90429'; // 鲜红，强调高昂/劣势
+        const colorHigh = '#EF233C';    // 次红
+        const colorMid = '#3B82F6';     // 蓝
+        const colorLow = '#60A5FA';     // 浅蓝
+        const colorCheap = '#10B981';   // 绿色，代表便宜/优势
+        const colorCompetitor = '#E5E7EB'; // 灰色背景
 
-    <!-- 图表6：综合劣势雷达图 -->
-    <div class="chart-box full-width">
-        <div class="chart-title">
-            6. 综合竞争力镭射图：全方位被包围
-            <span class="chart-subtitle">面积越小，竞争力越弱</span>
-        </div>
-        <div id="chart6" class="chart-content"></div>
-    </div>
-
-</div>
-
-<script>
-    // 通用颜色配置
-    const woosongColor = '#c23531'; // 红色 - 警示/劣势
-    const competitorColor = '#009688'; // 青色 - 优势/常态
-    const highlightColor = '#E6A23C'; // 橙色 - 中间态
-
-    // Chart 1: QS & Location (名校与地理位置)
-    const chart1 = echarts.init(document.getElementById('chart1'));
-    const option1 = {
-        tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
-        grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
-        xAxis: { type: 'value', show: false },
-        yAxis: { 
-            type: 'category', 
-            data: ['拥有QS排名', '位于首尔/京畿道'],
-            axisLabel: { fontWeight: 'bold', fontSize: 14 }
-        },
-        series: [
-            {
-                name: '竞争对手',
-                type: 'bar',
-                stack: 'total',
-                label: { show: true, position: 'insideRight', formatter: '{c}所' },
-                data: [11, 23], // 11所QS，约23所首都圈
-                itemStyle: { color: competitorColor },
-                barWidth: 40
-            },
-            {
-                name: '又松大学',
-                type: 'bar',
-                stack: 'total',
-                label: { show: true, position: 'right', formatter: '{b}: 无', color: 'red', fontWeight: 'bold' },
-                data: [0.2, 0.2], // 占位显示
-                itemStyle: { color: woosongColor }
-            }
-        ]
-    };
-    chart1.setOption(option1);
-
-    // Chart 2: Major Counts (专业数量)
-    // 分档：1-5, 6-10, 11-20, 20+
-    const chart2 = echarts.init(document.getElementById('chart2'));
-    const option2 = {
-        tooltip: { trigger: 'item' },
-        xAxis: { 
-            type: 'category', 
-            data: ['少于5个\n(极少)', '6-10个\n(普通)', '11-20个\n(丰富)', '20个以上\n(极多)'],
-            axisLabel: { interval: 0 }
-        },
-        yAxis: { type: 'value', name: '学校数量' },
-        series: [{
-            data: [
+        // ==========================================
+        // 图表1：QS排名与地理位置
+        // ==========================================
+        const chart1 = echarts.init(document.getElementById('chart1'));
+        chart1.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            legend: { top: '5%' },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'category', data: ['拥有QS排名', '位于首尔/京畿圈'] },
+            yAxis: { type: 'value', name: '学校数量 (所)' },
+            series: [
                 {
-                    value: 12, 
-                    itemStyle: { color: woosongColor },
-                    label: { 
-                        show: true, 
-                        position: 'top', 
-                        formatter: '{c}所\n(含又松:3个)',
-                        color: woosongColor,
-                        fontWeight: 'bold',
-                        fontSize: 14
-                    }
-                },
-                {value: 15, itemStyle: { color: competitorColor }},
-                {value: 10, itemStyle: { color: competitorColor }},
-                {value: 6, itemStyle: { color: competitorColor }}
-            ],
-            type: 'bar',
-            barWidth: '50%',
-            label: { show: true, position: 'top' }
-        }]
-    };
-    chart2.setOption(option2);
-
-    // Chart 3: Tuition (学费)
-    // 档位：国立, 200-300, 300-400, 400-500, 500+
-    const chart3 = echarts.init(document.getElementById('chart3'));
-    const option3 = {
-        tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
-        grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
-        xAxis: { type: 'value', name: '学校数量' },
-        yAxis: { 
-            type: 'category', 
-            data: ['国立大学\n(200万以下)', '200-300万', '300-400万', '400-500万', '500万以上'],
-            axisLabel: { interval: 0 }
-        },
-        series: [
-            {
-                name: '学校数量',
-                type: 'bar',
-                data: [
-                    {value: 8, itemStyle: {color: competitorColor}}, // 国立
-                    {value: 10, itemStyle: {color: competitorColor}}, // 2-300
-                    {value: 15, itemStyle: {color: competitorColor}}, // 3-400
-                    {
-                        value: 7, 
-                        itemStyle: {color: highlightColor},
-                        label: { show: true, position: 'right', formatter: '{c}所 (又松经营学)' }
-                    }, // 4-500
-                    {
-                        value: 4, 
-                        itemStyle: {color: woosongColor},
-                        label: { show: true, position: 'right', formatter: '{c}所 (又松理工/艺体)', fontWeight: 'bold', color: 'red' }
-                    }  // 500+
-                ],
-                label: { show: true, position: 'right' }
-            }
-        ]
-    };
-    chart3.setOption(option3);
-
-    // Chart 4: Scholarship & Entrance Fee (奖学金与入学金)
-    const chart4 = echarts.init(document.getElementById('chart4'));
-    const option4 = {
-        tooltip: { trigger: 'axis' },
-        legend: { data: ['奖学金覆盖率', '入学金金额(万韩元)'] },
-        grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
-        xAxis: [
-            { 
-                type: 'category', 
-                data: ['大多数高校', '国立/优秀高校', '又松大学'],
-                axisPointer: { type: 'shadow' }
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value',
-                name: '入学金',
-                min: 0,
-                max: 100,
-                axisLabel: { formatter: '{value} 万' }
-            },
-            {
-                type: 'value',
-                name: '奖学金',
-                min: 0,
-                max: 100,
-                axisLabel: { formatter: '{value} %' }
-            }
-        ],
-        series: [
-            {
-                name: '入学金金额(万韩元)',
-                type: 'bar',
-                barWidth: 30,
-                data: [
-                    {value: 40, itemStyle: {color: competitorColor}}, // 平均
-                    {value: 0, itemStyle: {color: competitorColor}},  // 许多免入学金
-                    {
-                        value: 90.5, 
-                        itemStyle: {color: woosongColor},
-                        label: { show: true, position: 'top', formatter: '90.5万\n(约$650)', fontWeight:'bold' }
-                    } // 又松
-                ]
-            },
-            {
-                name: '奖学金覆盖率',
-                type: 'line',
-                yAxisIndex: 1,
-                data: [50, 80, 0], // 又松是0
-                itemStyle: { color: '#E6A23C' },
-                markPoint: {
-                    data: [
-                        { name: '又松', value: '无奖学金', xAxis: 2, yAxis: 0, itemStyle: {color: 'red'} }
-                    ]
-                }
-            }
-        ]
-    };
-    chart4.setOption(option4);
-
-    // Chart 5: Services (服务机制)
-    const chart5 = echarts.init(document.getElementById('chart5'));
-    const option5 = {
-        title: { text: '留学生支援服务持有率', left: 'center', top: 10, textStyle: {fontSize: 14} },
-        tooltip: { trigger: 'item' },
-        series: [
-            {
-                name: '服务对比',
-                type: 'pie',
-                radius: ['40%', '70%'],
-                center: ['50%', '60%'],
-                itemStyle: {
-                    borderRadius: 10,
-                    borderColor: '#fff',
-                    borderWidth: 2
-                },
-                label: {
-                    formatter: '{b}: {c}%\n{d}%学校提供',
-                    fontSize: 12
-                },
-                data: [
-                    { value: 85, name: '提供免费接机', itemStyle: {color: competitorColor} },
-                    { value: 70, name: '提供文化体验', itemStyle: {color: '#2f4554'} },
-                    { value: 60, name: 'TOPIK奖学金', itemStyle: {color: '#61a0a8'} },
-                    { 
-                        value: 0, 
-                        name: '又松大学', 
-                        itemStyle: {color: woosongColor},
-                        label: { 
-                            show: true, 
-                            formatter: '又松大学:\n各项服务均缺失', 
-                            fontSize: 16, 
-                            fontWeight: 'bold', 
-                            color: 'red',
-                            position: 'center'
-                        }
-                    }
-                ]
-            }
-        ]
-    };
-    chart5.setOption(option5);
-
-    // Chart 6: Radar Summary (镭射图)
-    const chart6 = echarts.init(document.getElementById('chart6'));
-    const option6 = {
-        tooltip: {},
-        legend: {
-            data: ['竞争对手平均水平', '又松大学 (我方)'],
-            bottom: 0
-        },
-        radar: {
-            indicator: [
-                { name: '性价比 (低学费)', max: 100 },
-                { name: '地理优势 (首都圈)', max: 100 },
-                { name: '学校声誉 (QS排名)', max: 100 },
-                { name: '专业丰富度', max: 100 },
-                { name: '入学福利 (低入学金)', max: 100 },
-                { name: '学生服务/奖学金', max: 100 }
-            ],
-            radius: '65%',
-            splitNumber: 4,
-            axisName: { color: '#333', fontWeight: 'bold' },
-            splitArea: {
-                areaStyle: {
-                    color: ['#fff', '#f5f5f5', '#e8e8e8', '#dcdcdc']
-                }
-            }
-        },
-        series: [{
-            name: '综合对比',
-            type: 'radar',
-            data: [
-                {
-                    value: [85, 60, 30, 70, 90, 80],
-                    name: '竞争对手平均水平',
-                    itemStyle: { color: competitorColor },
-                    areaStyle: { opacity: 0.3, color: competitorColor }
+                    name: '竞争对手(43所)',
+                    type: 'bar',
+                    barWidth: '40%',
+                    data: [11, 28], 
+                    itemStyle: { color: '#3B82F6' },
+                    label: { show: true, position: 'top', formatter: '{c} 所' }
                 },
                 {
-                    value: [20, 0, 0, 10, 5, 5], // 极低的分数突出劣势
-                    name: '又松大学 (我方)',
-                    itemStyle: { color: woosongColor },
-                    areaStyle: { opacity: 0.6, color: woosongColor },
-                    label: { show: true, formatter: function(params) { return params.value < 10 ? '!' : ''; } }
+                    name: '又松大学',
+                    type: 'bar',
+                    barWidth: '40%',
+                    data: [0, 0], 
+                    itemStyle: { color: colorWoosong },
+                    label: { show: true, position: 'top', formatter: '无 (0)', color: colorWoosong, fontWeight: 'bold' }
                 }
             ]
-        }]
-    };
-    chart6.setOption(option6);
+        });
 
-    // 响应式调整
-    window.addEventListener('resize', function() {
-        chart1.resize();
-        chart2.resize();
-        chart3.resize();
-        chart4.resize();
-        chart5.resize();
-        chart6.resize();
-    });
+        // ==========================================
+        // 图表2：专业选择 (修改为柱状图)
+        // ==========================================
+        const chart2 = echarts.init(document.getElementById('chart2'));
+        chart2.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { 
+                type: 'category', 
+                data: ['第一梯队\n(>20个)', '第二梯队\n(10-20个)', '第三梯队\n(6-10个)', '第四梯队\n(3-5个)', '又松大学\n(3个)'],
+                axisLabel: { interval: 0, rotate: 0 } // 防止标签重叠
+            },
+            yAxis: { type: 'value', name: '学校数量 (所)' },
+            series: [
+                {
+                    name: '学校数量',
+                    type: 'bar',
+                    barWidth: '50%',
+                    data: [
+                        { value: 10, itemStyle: { color: '#10B981' } }, // 第一梯队
+                        { value: 13, itemStyle: { color: '#34D399' } }, // 第二梯队
+                        { value: 15, itemStyle: { color: '#6EE7B7' } }, // 第三梯队
+                        { value: 5,  itemStyle: { color: '#A7F3D0' } }, // 第四梯队
+                        { 
+                            value: 1, 
+                            itemStyle: { color: colorWoosong },
+                            label: { show: true, position: 'top', formatter: '我校 (1所)', fontWeight: 'bold', color: colorWoosong }
+                        }
+                    ],
+                    label: { show: true, position: 'top', formatter: '{c} 所' }
+                }
+            ]
+        });
 
-</script>
+        // ==========================================
+        // 图表3：学费对比 (视觉强化版)
+        // ==========================================
+        const chart3 = echarts.init(document.getElementById('chart3'));
+        chart3.setOption({
+            tooltip: { 
+                trigger: 'axis',
+                formatter: function (params) {
+                    return params[0].name + '<br/>平均学费: ' + params[0].value + '万韩元<br/>说明: ' + params[0].data.desc;
+                }
+            },
+            grid: { left: '3%', right: '3%', bottom: '5%', containLabel: true },
+            xAxis: { 
+                type: 'category', 
+                data: ['>500万韩元\n(最高档)', '400-500万韩元\n(高价区)', '300-400万韩元\n(中等区)', '200-300万韩元\n(性价比)', '<200万韩元\n(国立低价)'],
+                axisLabel: { interval: 0, fontWeight: 'bold', fontSize: 12 }
+            },
+            yAxis: { 
+                type: 'value', 
+                name: '学费金额 (万韩元)',
+                min: 0,
+                max: 600,
+                axisLabel: { formatter: '{value} 万' }
+            },
+            series: [
+                {
+                    name: '学费层级',
+                    type: 'bar',
+                    barWidth: '50%',
+                    data: [
+                        { 
+                            value: 532, 
+                            itemStyle: { 
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    { offset: 0, color: '#D90429' }, 
+                                    { offset: 1, color: '#FF5A5F' }
+                                ])
+                            },
+                            label: { show: true, position: 'top', formatter: '又松大学\n(最高532万)', fontSize: 14, fontWeight: 'bold', color: '#D90429' },
+                            desc: '我校处于最高收费区间 (约5所)'
+                        },
+                        { 
+                            value: 450, 
+                            itemStyle: { color: '#F97316' }, 
+                            label: { show: true, position: 'top', formatter: '约450万' },
+                            desc: '大部分私立理工科 (约10所)'
+                        },
+                        { 
+                            value: 350, 
+                            itemStyle: { color: '#3B82F6' }, 
+                            label: { show: true, position: 'top', formatter: '约350万' },
+                            desc: '大部分私立文科 (约18所)'
+                        },
+                        { 
+                            value: 250, 
+                            itemStyle: { color: '#60A5FA' }, 
+                            label: { show: true, position: 'top', formatter: '约250万' },
+                            desc: '地方私立大学 (约8所)'
+                        },
+                        { 
+                            value: 180, 
+                            itemStyle: { color: '#10B981' }, 
+                            label: { show: true, position: 'top', formatter: '约180万' },
+                            desc: '国立大学 (约5所)'
+                        }
+                    ],
+                    markLine: {
+                        data: [{ type: 'average', name: '平均线' }],
+                        lineStyle: { color: 'gray', type: 'dashed' }
+                    }
+                }
+            ]
+        });
 
+        // ==========================================
+        // 图表4：隐形消费
+        // ==========================================
+        // 4.1 奖学金 (修改：需要标出有的几所,无的几所)
+        const chart4_1 = echarts.init(document.getElementById('chart4_1'));
+        chart4_1.setOption({
+            tooltip: { trigger: 'item', formatter: '{b}: {c}所 ({d}%)' },
+            legend: { bottom: '0' },
+            series: [{
+                type: 'pie',
+                radius: ['50%', '70%'],
+                center: ['50%', '45%'],
+                data: [
+                    { 
+                        value: 42, 
+                        name: '有奖学金 (42所)', 
+                        itemStyle: { color: '#3B82F6' },
+                        label: { show: true, formatter: '有奖学金\n42所 (绝大多数)' }
+                    },
+                    { 
+                        value: 1, 
+                        name: '无奖学金 (又松 1所)', 
+                        itemStyle: { color: colorWoosong },
+                        label: { show: true, position: 'outside', formatter: '无奖学金\n(又松 1所)', fontWeight: 'bold', color: colorWoosong },
+                        labelLine: { show: true, lineStyle: { color: colorWoosong } }
+                    }
+                ]
+            }]
+        });
+
+        // 4.2 入学金 (修改：需要标记几所)
+        const chart4_2 = echarts.init(document.getElementById('chart4_2'));
+        chart4_2.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '3%', right: '15%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'value', name: '金额 (万韩元)' },
+            yAxis: { type: 'category', data: ['无入学金', '普通院校', '又松大学'] },
+            series: [{
+                type: 'bar',
+                barWidth: '40%',
+                data: [
+                    { 
+                        value: 0.5, // 稍微给点数值以便显示Tooltip，实际为0
+                        realValue: 0,
+                        itemStyle: { color: '#10B981' },
+                        label: { show: true, position: 'right', formatter: '0元 (15所)', color: '#000' } 
+                    },
+                    { 
+                        value: 45, 
+                        itemStyle: { color: '#3B82F6' }, 
+                        label: { show: true, position: 'right', formatter: '约45万 (27所)' } 
+                    },
+                    { 
+                        value: 90.5, 
+                        itemStyle: { color: colorWoosong }, 
+                        label: { show: true, position: 'right', formatter: '90.5万 (1所)', color: colorWoosong, fontWeight: 'bold' } 
+                    }
+                ]
+            }]
+        });
+
+        // ==========================================
+        // 图表5：服务体系 (修改：只对比免费接机、奖学金、文化体验)
+        // ==========================================
+        const chart5 = echarts.init(document.getElementById('chart5'));
+        chart5.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            legend: { data: ['竞品平均覆盖率/力度', '又松大学'] },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { 
+                type: 'category', 
+                data: ['免费接机服务', '奖学金制度', '文化体验活动'] 
+            },
+            yAxis: { type: 'value', max: 100, name: '覆盖率/提供指数' },
+            series: [
+                {
+                    name: '竞品平均覆盖率/力度',
+                    type: 'bar',
+                    barGap: '20%',
+                    data: [95, 98, 85], // 竞品数据：接机95%，奖学金98%（42/43），文化体验85%
+                    itemStyle: { color: '#3B82F6' },
+                    label: { show: true, position: 'top', formatter: '{c}%' }
+                },
+                {
+                    name: '又松大学',
+                    type: 'bar',
+                    data: [0, 0, 10], // 接机无，奖学金无，文化体验少
+                    itemStyle: { color: colorWoosong },
+                    label: { show: true, position: 'top', formatter: function(p){ return p.value > 0 ? '弱' : '无'; }, color: colorWoosong, fontWeight: 'bold' }
+                }
+            ]
+        });
+
+        // ==========================================
+        // 图表6：雷达图
+        // ==========================================
+        const chart6 = echarts.init(document.getElementById('chart6'));
+        chart6.setOption({
+            tooltip: {},
+            legend: { bottom: 0 },
+            radar: {
+                indicator: [
+                    { name: '学费优势\n(越便宜分越高)', max: 100 },
+                    { name: '学校排名\n(QS)', max: 100 },
+                    { name: '地理位置\n(首都圈)', max: 100 },
+                    { name: '奖学金力度', max: 100 },
+                    { name: '服务完善度', max: 100 },
+                    { name: '专业丰富度', max: 100 }
+                ],
+                radius: '60%',
+                splitArea: { areaStyle: { color: ['#fff', '#f5f5f5'] } }
+            },
+            series: [{
+                name: '综合对比',
+                type: 'radar',
+                data: [
+                    {
+                        value: [85, 60, 75, 80, 90, 85], 
+                        name: '竞争对手平均',
+                        itemStyle: { color: '#3B82F6' },
+                        areaStyle: { opacity: 0.3 }
+                    },
+                    {
+                        value: [10, 0, 10, 0, 20, 10], 
+                        name: '又松大学',
+                        itemStyle: { color: colorWoosong },
+                        areaStyle: { opacity: 0.8, color: colorWoosong },
+                        label: { show: true, formatter: '弱' }
+                    }
+                ]
+            }]
+        });
+
+        // 响应式
+        window.onresize = function() {
+            chart1.resize(); chart2.resize(); chart3.resize();
+            chart4_1.resize(); chart4_2.resize(); chart5.resize(); chart6.resize();
+        };
+    </script>
 </body>
 </html>
